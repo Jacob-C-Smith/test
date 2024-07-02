@@ -1,0 +1,12 @@
+[submodule "log"]
+	path = log
+	url = https://github.com/Jacob-C-Smith/log
+[submodule "sync"]
+	path = sync
+	url = https://github.com/Jacob-C-Smith/sync
+[submodule "extern/log"]
+	path = extern/log
+	url = https://github.com/Jacob-C-Smith/log
+[submodule "extern/sync"]
+	path = extern/sync
+	url = https://github.com/Jacob-C-Smith/sync

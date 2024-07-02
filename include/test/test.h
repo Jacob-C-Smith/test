@@ -10,7 +10,6 @@
 #include <math.h>
 #include <sync/sync.h>
 #include <log/log.h>
-#include <test/test.h>
 
 // Enumeration definitions
 enum result_e
@@ -26,16 +25,18 @@ struct test_scenario_s
 {
     char _name[63+1];
 
-}
+};
 
 struct test_module_s
 {
     char _name[63+1];
 
-}
+};
 
 // Type definitions
 typedef enum result_e result_t;
+typedef struct test_scenario_s test_scenario;
+typedef struct test_module_s test_module;
 
 // Forward declarations
 
@@ -68,3 +69,5 @@ void print_final_summary ( void );
  * @return void
  */
 void print_time_pretty ( double seconds );
+
+int run_tests ( const char *p_module_name, int test_quantity, test_scenario *p_test_scenarios );
