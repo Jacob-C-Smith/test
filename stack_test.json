@@ -1,0 +1,56 @@
+{
+    "scenarios" :
+    {
+        "empty" : 
+        {
+            "constructor" : "empty stack",
+            "cases" :
+            {
+                "push A" :
+                {
+                    "result" : 1,
+                    "data"   : "A"
+                },
+                "push B" :
+                {
+                    "result" : 1,
+                    "data"   : "B"
+                },
+                "push C" :
+                {
+                    "result" : 1,
+                    "data"   : "C"
+                },
+                "pop" : 
+                {
+                    "result" : 0,
+                    "data"   : "empty"
+                },
+                "peek" : 
+                {
+                    "result" : 0,
+                    "data"   : "empty"
+                }
+            }
+        }
+    },
+    "constants" :
+    {
+        "empty" : [ ],
+        "A"     : [ "A" ],
+        "B"     : [ "B" ],
+        "C"     : [ "C" ],
+        "AB"    : [ "A", "B" ],
+        "AC"    : [ "A", "C" ],
+        "BA"    : [ "B", "A" ],
+        "BC"    : [ "B", "C" ],
+        "CA"    : [ "C", "A" ],
+        "CB"    : [ "C", "B" ],
+        "ABC"   : [ "A", "B", "C" ],
+        "ACB"   : [ "A", "C", "B" ],
+        "BAC"   : [ "B", "A", "C" ],
+        "BCA"   : [ "B", "C", "A" ],
+        "CAB"   : [ "C", "A", "B" ],
+        "CBA"   : [ "C", "B", "A" ]
+    }
+}

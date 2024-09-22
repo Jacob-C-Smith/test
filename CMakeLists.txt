@@ -29,12 +29,22 @@ if (${IS_DEBUG_BUILD})
     add_compile_definitions(NDEBUG)
 endif()
 
+# Find the log module
+if ( NOT "${HAS_LOG}")
+    
+    # Add the log directory
+    add_subdirectory(${CMAKE_SOURCE_DIR}/extern/log ${CMAKE_SOURCE_DIR}/build/log)
+
+    # Let any parent project know that this project has log
+    if(NOT PROJECT_IS_TOP_LEVEL)
+        set(HAS_LOG true PARENT_SCOPE)
+        set(LOG_INCLUDE_DIR ${LOG_INCLUDE_DIR} PARENT_SCOPE)
+    endif()
+endif()
+
 # Find the sync module
 if ( NOT "${HAS_SYNC}")
-
-    # Log
-    message("[stack] Adding sync project")
-
+    
     # Add the sync directory
     add_subdirectory(${CMAKE_SOURCE_DIR}/extern/sync ${CMAKE_SOURCE_DIR}/build/sync)
 
@@ -45,19 +55,42 @@ if ( NOT "${HAS_SYNC}")
     endif()
 endif()
 
-# Find the log module
-if ( NOT "${HAS_LOG}")
+# Find the array module
+if ( NOT "${HAS_JSON}")
+    
+    # Add the array directory
+    add_subdirectory(${CMAKE_SOURCE_DIR}/extern/json ${CMAKE_SOURCE_DIR}/build/json)
 
-    # Log
-    message("[stack] Adding log project")
-
-    # Add the log directory
-    add_subdirectory(${CMAKE_SOURCE_DIR}/extern/log ${CMAKE_SOURCE_DIR}/build/log)
-
-    # Let any parent project know that this project has log
+    # Let any parent project know that this project has array
     if(NOT PROJECT_IS_TOP_LEVEL)
-        set(HAS_LOG true PARENT_SCOPE)
-        set(LOG_INCLUDE_DIR ${LOG_INCLUDE_DIR} PARENT_SCOPE)
+        set(HAS_JSON true PARENT_SCOPE)
+        set(JSON_INCLUDE_DIR ${JSON_INCLUDE_DIR} PARENT_SCOPE)
+    endif()
+endif()
+
+# Find the array module
+if ( NOT "${HAS_ARRAY}")
+    
+    # Add the array directory
+    add_subdirectory(${CMAKE_SOURCE_DIR}/extern/array ${CMAKE_SOURCE_DIR}/build/array)
+
+    # Let any parent project know that this project has array
+    if(NOT PROJECT_IS_TOP_LEVEL)
+        set(HAS_ARRAY true PARENT_SCOPE)
+        set(ARRAY_INCLUDE_DIR ${ARRAY_INCLUDE_DIR} PARENT_SCOPE)
+    endif()
+endif()
+
+# Find the dict module
+if ( NOT "${HAS_DICT}")
+    
+    # Add the dict directory
+    add_subdirectory(${CMAKE_SOURCE_DIR}/extern/dict ${CMAKE_SOURCE_DIR}/build/dict)
+
+    # Let any parent project know that this project has dict
+    if(NOT PROJECT_IS_TOP_LEVEL)
+        set(HAS_DICT true PARENT_SCOPE)
+        set(DICT_INCLUDE_DIR ${DICT_INCLUDE_DIR} PARENT_SCOPE)
     endif()
 endif()
 
@@ -78,12 +111,12 @@ endif()
 
 # Add source to this project's executable.
 add_executable(test_example "main.c" "stack.c")
-add_dependencies(test_example test)
-target_include_directories(test_example PUBLIC ${TEST_INCLUDE_DIR})
-target_link_libraries(test_example test)
+add_dependencies(test_example test json dict array hash_cache log sync)
+target_include_directories(test_example PUBLIC ${TEST_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR} ${LOG_INCLUDE_DIR})
+target_link_libraries(test_example test json dict array hash_cache log sync)
 
 # Add source to the library
 add_library(test SHARED "test.c")
-add_dependencies(test sync)
-target_include_directories(test PUBLIC include ${TEST_INCLUDE_DIR} ${SYNC_INCLUDE_DIR})
-target_link_libraries(test sync)
+add_dependencies(test json dict array hash_cache log sync)
+target_include_directories(test PUBLIC include ${TEST_INCLUDE_DIR} ${SYNC_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR} ${LOG_INCLUDE_DIR})
+target_link_libraries(test json dict array hash_cache log sync)

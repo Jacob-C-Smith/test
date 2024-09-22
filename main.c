@@ -1,5 +1,5 @@
 /** !
- * tester library example
+ * tester example
  * 
  * @file main.c
  *
@@ -28,33 +28,13 @@ int main ( int argc, const char* argv[] )
     // Supress compiler warnings
     (void) argc;
     (void) argv;
-
+    
     // Initialized data
-    test_scenario _test_scenarios[] = 
+    test_module _stack_tester = 
     {
-        { 
-            ._name = "empty"
-        },
-        { 
-            ._name = "empty_pushA_A"
-        },
-        { 
-            ._name = "A_pop_empty"
-        },
-        { 
-            ._name = "A_pushB_AB"
-        },
-        { 
-            ._name = "AB_pop_A"
-        },
-        { 
-            ._name = "AB_pushC_ABC"
-        },
-        { 
-            ._name = "ABC_pop_AB"
-        }
+        ._name = "stack"
     };
 
     // Success
-    return ( run_tests ( "stack", 7, _test_scenarios ) == 0 ) ? EXIT_FAILURE : EXIT_SUCCESS;
+    return run_tests(&_stack_tester) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
